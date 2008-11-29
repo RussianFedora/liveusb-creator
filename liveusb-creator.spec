@@ -2,7 +2,7 @@
 
 Name:           liveusb-creator
 Version:        3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -64,6 +64,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Sat Nov 29 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 3.0-3
+- Rebuild for Python 2.6
+
 * Fri Oct 03 2008 Luke Macken <lmacken@redhat.com> 3.0-2
 - Exclude ppc and ppc64, as syslinux will not work on those architectures.
 
