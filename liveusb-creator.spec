@@ -2,7 +2,7 @@
 
 Name:           liveusb-creator
 Version:        3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -64,6 +64,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Wed Dec 31 2008 Luke Macken <lmacken@redhat.com> 3.0-5
+- Rebuild
+
 * Mon Dec 29 2008 Luke Macken <lmacken@redhat.com> 3.0-4
 - Latest upstream release.
 - Fedora 10 support
