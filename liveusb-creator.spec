@@ -1,7 +1,7 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           liveusb-creator
-Version:        3.3
+Version:        3.4
 Release:        1%{?dist}
 Summary:        A liveusb creator
 
@@ -17,6 +17,7 @@ ExcludeArch:    ppc64
 
 BuildRequires:  python-devel, python-setuptools, PyQt4-devel, desktop-file-utils gettext
 Requires:       syslinux, PyQt4, usermode, isomd5sum
+Requires:       python-urlgrabber
 
 %description
 A liveusb creator from Live Fedora images
@@ -31,6 +32,7 @@ make mo
 %install
 rm -rf %{buildroot}
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%{__rm} -r liveusb/urlgrabber
 
 # Adjust for console-helper magic
 mkdir -p %{buildroot}%{_sbindir}
@@ -64,6 +66,12 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Fri Jan 16 2009 Luke Macken <lmacken@redhat.com> 3.4-1
+- Update to 3.4.
+
+* Fri Jan 16 2009 Luke Macken <lmacken@redhat.com> 3.3-2
+- Require python-urlgrabber
+
 * Fri Jan 15 2009 Luke Macken <lmacken@redhat.com> 3.3-1
 - Update to 3.3
 
