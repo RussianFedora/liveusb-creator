@@ -2,7 +2,7 @@
 
 Name:           liveusb-creator
 Version:        3.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -67,6 +67,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Mon Feb 02 2009 Luke Macken <lmacken@redhat.com> 3.5-2
 - Require pyparted
 
