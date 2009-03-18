@@ -1,7 +1,7 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           liveusb-creator
-Version:        3.6.3
+Version:        3.6.4
 Release:        1%{?dist}
 Summary:        A liveusb creator
 
@@ -18,7 +18,7 @@ ExcludeArch:    ppc64
 BuildRequires:  python-devel, python-setuptools, PyQt4-devel, desktop-file-utils gettext
 Requires:       syslinux, PyQt4, usermode, isomd5sum
 Requires:       python-urlgrabber
-Requires:       pyparted
+Requires:       pyparted >= 2.0
 
 %description
 A liveusb creator from Live Fedora images
@@ -68,6 +68,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Wed Mar 18 2009 Luke Macken <lmacken@redhat.com> 3.6.4-1
+- Update to v3.6.4, which works with the PyParted 2.0 API
+
 * Thu Mar 12 2009 Luke Macken <lmacken@redhat.com> 3.6.3-1
 - Update to v3.6.3
 
@@ -78,8 +81,7 @@ rm -rf %{buildroot}
 * Fri Mar 06 2009 wwp <subscript@free.fr> 3.5-2
 - Fix dd commands when output path contain whitespaces
 
-* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> 3
-.5-3
+* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> 3.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
 * Fri Jan 16 2009 Luke Macken <lmacken@redhat.com> 3.5-1
