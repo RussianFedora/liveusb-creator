@@ -1,0 +1,9 @@
+--- liveusb-creator-3.6.5.orig/liveusb/olpc.py	2009-04-09 15:42:59.000000000 +0200
++++ liveusb-creator-3.6.5/liveusb/olpc.py	2009-05-20 11:38:33.000000000 +0200
+@@ -35,5 +35,6 @@
+ " ${BOOTPATHDEV}\syslinux\initrd0.img" expand$ to ramdisk
+ " ${BOOTPATHDEV}\syslinux\\vmlinuz0" expand$ to boot-device
+ unfreeze
++dcon-unfreeze
+ boot
+ """

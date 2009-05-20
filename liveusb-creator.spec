@@ -2,13 +2,14 @@
 
 Name:           liveusb-creator
 Version:        3.6.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
 License:        GPLv2
 URL:            https://fedorahosted.org/liveusb-creator
 Source0:        https://fedorahosted.org/releases/l/i/liveusb-creator/%{name}-%{version}.tar.bz2
+Patch0:         %{name}-3.6.5-olpc-dcon-unfreeze.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
@@ -25,6 +26,7 @@ A liveusb creator from Live Fedora images
 
 %prep
 %setup -q
+%patch0 -p1 -b .dcon-unfreeze
 
 %build
 %{__python} setup.py build
@@ -68,6 +70,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Wed May 20 2009 Christoph Wickert <cwickert@fedoraproject.org> - 3.6.5-3
+- Make olpc.fth unfreeze disply for newer BIOSes than Q2E30 (#501688)
+
 * Thu Apr 09 2009 Luke Macken <lmacken@redhat.com> 3.6.5-2
 - Fix the checksum verification to support sha256
 
