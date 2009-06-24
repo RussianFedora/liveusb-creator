@@ -1,8 +1,8 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           liveusb-creator
-Version:        3.6.5
-Release:        2%{?dist}
+Version:        3.6.9
+Release:        1%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -68,8 +68,26 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Wed Jun 24 2009 Luke Macken <lmacken@redhat.com> - 3.6.9-1
+- Latest bugfix release, in sync with the 3.7 release, but
+  with pyparted 1.x support.
+
+* Fri Jun 12 2009 Luke Macken <lmacken@redhat.com> - 3.6.8-1
+- Latest upstream bugfix release
+
+* Tue Jun 09 2009 Luke Macken <lmacken@redhat.com> - 3.6.7-1
+- Fix a bug with ext formatted sticks
+
+* Tue Jun 09 2009 Luke Macken <lmacken@redhat.com> - 3.6.6-1
+- Update to v3.6.6
+- Merge the dcon-unfreeze patch upstream
+- Add Fedora 11 to the release list
+
+* Wed May 20 2009 Christoph Wickert <cwickert@fedoraproject.org> - 3.6.5-3
+- Make olpc.fth unfreeze disply for newer BIOSes than Q2E30 (#501688)
+
 * Thu Apr 09 2009 Luke Macken <lmacken@redhat.com> 3.6.5-2
-- Handle SHA256 hashes
+- Fix the checksum verification to support sha256
 
 * Thu Apr 09 2009 Luke Macken <lmacken@redhat.com> 3.6.5-1
 - Update to v3.6.5, which supports F11 beta, and the latest SoaS releases
@@ -86,6 +104,9 @@ rm -rf %{buildroot}
 
 * Fri Mar 06 2009 wwp <subscript@free.fr> 3.5-2
 - Fix dd commands when output path contain whitespaces
+
+* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> 3.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
 * Fri Jan 16 2009 Luke Macken <lmacken@redhat.com> 3.5-1
 - Update to v3.5
