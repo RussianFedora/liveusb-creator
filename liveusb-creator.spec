@@ -2,7 +2,7 @@
 
 Name:           liveusb-creator
 Version:        3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -68,6 +68,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Wed Jun 24 2009 Luke Macken <lmacken@redhat.com> - 3.7
 - Latest upstream bugfix release
 
