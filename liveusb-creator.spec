@@ -1,7 +1,7 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           liveusb-creator
-Version:        3.6.9
+Version:        3.7.3
 Release:        1%{?dist}
 Summary:        A liveusb creator
 
@@ -18,7 +18,7 @@ ExcludeArch:    ppc64
 BuildRequires:  python-devel, python-setuptools, PyQt4-devel, desktop-file-utils gettext
 Requires:       syslinux, PyQt4, usermode, isomd5sum
 Requires:       python-urlgrabber
-Requires:       pyparted
+Requires:       pyparted >= 2.0
 
 %description
 A liveusb creator from Live Fedora images
@@ -68,9 +68,17 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
-* Wed Jun 24 2009 Luke Macken <lmacken@redhat.com> - 3.6.9-1
-- Latest bugfix release, in sync with the 3.7 release, but
-  with pyparted 1.x support.
+* Thu Aug 27 2009 Luke Macken <lmacken@redhat.com> - 3.7.3-1
+- 3.7.3
+
+* Wed Aug 05 2009 Luke Macken <lmacken@redhat.com> - 3.7.2-1
+- 3.7.2
+
+* Sat Jun 27 2009 Luke Macken <lmacken@redhat.com> - 3.7.1-1
+- 3.7.1
+
+* Wed Jun 24 2009 Luke Macken <lmacken@redhat.com> - 3.7
+- Latest upstream bugfix release
 
 * Fri Jun 12 2009 Luke Macken <lmacken@redhat.com> - 3.6.8-1
 - Latest upstream bugfix release
