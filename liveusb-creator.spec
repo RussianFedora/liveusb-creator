@@ -2,7 +2,7 @@
 
 Name:           liveusb-creator
 Version:        3.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -68,6 +68,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Wed Jul 21 2010 David Malcolm <dmalcolm@redhat.com> - 3.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
+
 * Tue Jun 15 2010 Luke Macken <lmacken@redhat.com> - 3.9.2-1
 - 3.9.2
 
