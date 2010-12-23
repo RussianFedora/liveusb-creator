@@ -1,0 +1,458 @@
+diff -urN liveusb-creator-3.9.2.orig/liveusb/releases.py liveusb-creator-3.9.2/liveusb/releases.py
+--- liveusb-creator-3.9.2.orig/liveusb/releases.py	2010-11-02 15:20:11.135541335 +0300
++++ liveusb-creator-3.9.2/liveusb/releases.py	2010-11-02 15:31:18.752593924 +0300
+@@ -1,4 +1,223 @@
+ releases = (
++
++    {
++	'name': 'RFRemix 14 i686  GNOME',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/14/Live/i686/RFRemix-14-i686-Live-GNOME.iso',
++	'sha256': '6e66aec14971b6faca566254ddaa8f4005386d81f9e95eeb0a399b9fef30af6a',
++    },
++
++    {
++	'name': 'RFRemix 14 i686 DVD',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/14/Live/i686/RFRemix-14-i686-LiveDVD.iso',
++	'sha256': '2bc7d3e0019764bdae8e2159d22a0cb7e6261b7428a98b5fbff700cb38a6ae43',
++    },
++
++    {
++	'name': 'RFRemix 14 i686  KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/14/Live/i686/RFRemix-14-i686-Live-KDE.iso',
++	'sha256': '99056507804d4488877b0130ff0e52d4d0ceb03cf9d5b172cfd25ff4f49df50d',
++    },
++
++    {
++	'name': 'RFRemix 14 i686  LXDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/14/Live/i686/RFRemix-14-i686-Live-LXDE.iso',
++	'sha256': '757d33bfb1616b8ec2b0f7043ef277759041d5229a32e4120e0223ce23049a1d',
++    },
++
++    {
++	'name': 'RFRemix 14 i686  XFCE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/14/Live/i686/RFRemix-14-i686-Live-XFCE.iso',
++	'sha256': 'b12c577a57be06910065aa22f43a8c0de806f2f97b7be6e3c069fcd8dcde26fb',
++    },
++
++    {
++	'name': 'RFRemix 14 i686 DVD KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/14/Live/i686/RFRemix-14-i686-LiveDVD-KDE.iso',
++	'sha256': 'c24643901302a286069e2e7633df68bfc444c6224749e5e1ff85727e2de52a90',
++    },
++
++    {
++	'name': 'RFRemix 14 x86_64 DVD KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/14/Live/x86_64/RFRemix-14-x86_64-LiveDVD-KDE.iso',
++	'sha256': 'b27cf1556d2f4cf297a9fc69120314be297ea104d41358d6d902faab10a8d3d6',
++    },
++
++    {
++	'name': 'RFRemix 14 x86_64  GNOME',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/14/Live/x86_64/RFRemix-14-x86_64-Live-GNOME.iso',
++	'sha256': '991bc10a8ffe9669a950c94d5087504710baa53f7f1cd673d89b77bc4fdf3e1d',
++    },
++
++    {
++	'name': 'RFRemix 14 x86_64  LXDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/14/Live/x86_64/RFRemix-14-x86_64-Live-LXDE.iso',
++	'sha256': 'd37dfb434bbb5f1e851ae1fc8d391dfd50faf757a15bd044711f500c64ed6ec3',
++    },
++
++    {
++	'name': 'RFRemix 14 x86_64  KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/14/Live/x86_64/RFRemix-14-x86_64-Live-KDE.iso',
++	'sha256': '1967c0953edcc96719d09daf4e2a5862b0c5734e3561e47f47b6eaea980989b7',
++    },
++
++    {
++	'name': 'RFRemix 14 x86_64 DVD',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/14/Live/x86_64/RFRemix-14-x86_64-LiveDVD.iso',
++	'sha256': '36aecf2788462ab0f6e338c4a19dbc51ee97bdc4f962e16d8b0ee47a2bc1e219',
++    },
++
++    {
++	'name': 'RFRemix 14 x86_64  XFCE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/14/Live/x86_64/RFRemix-14-x86_64-Live-XFCE.iso',
++	'sha256': 'ac5281254ca8c50a0548624b45022a5141bca1c4f18cb09de07f9d3ad1127397',
++    },
++
++    {
++	'name': 'RFRemix 13.1 i686  GNOME',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13.1/Live/i686/RFRemix-13.1-i686-Live-GNOME.iso',
++	'sha256': '9d1be382653cc245c4146cfcda05043e68fc66635d86ff29411e7eb2c5c934bc',
++    },
++
++    {
++	'name': 'RFRemix 13.1 i686 DVD',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13.1/Live/i686/RFRemix-13.1-i686-LiveDVD.iso',
++	'sha256': '5f8d15223132f4e9459645c23edc199941f9c2df986fd3e62fba476008012620',
++    },
++
++    {
++	'name': 'RFRemix 13.1 i686  KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13.1/Live/i686/RFRemix-13.1-i686-Live-KDE.iso',
++	'sha256': 'a0792539f01b2e5829d9506c9020b12b14627e79290ad835ed9b359ea73914d6',
++    },
++
++    {
++	'name': 'RFRemix 13.1 i686  LXDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13.1/Live/i686/RFRemix-13.1-i686-Live-LXDE.iso',
++	'sha256': '766049009f16e41a3257f21d4e5827bce8ae8f4078c54c248bae3503b77a5f86',
++    },
++
++    {
++	'name': 'RFRemix 13.1 i686  XFCE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13.1/Live/i686/RFRemix-13.1-i686-Live-XFCE.iso',
++	'sha256': 'a66912ff11397486cbda1e8755b81836396e407fc7a784ced1fcf5472cb48115',
++    },
++
++    {
++	'name': 'RFRemix 13.1 i686 DVD KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13.1/Live/i686/RFRemix-13.1-i686-LiveDVD-KDE.iso',
++	'sha256': '8adfe28f238d081c24366242632087465eea7c9ff0d4002c229720d5e6922eb2',
++    },
++
++    {
++	'name': 'RFRemix 13.1 x86_64 DVD KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13.1/Live/x86_64/RFRemix-13.1-x86_64-LiveDVD-KDE.iso',
++	'sha256': '0b3b399e5e987901428c18eee9739f8fbdb428ac8d57306359671be88e5720f5',
++    },
++
++    {
++	'name': 'RFRemix 13.1 x86_64  GNOME',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13.1/Live/x86_64/RFRemix-13.1-x86_64-Live-GNOME.iso',
++	'sha256': '8f78c08c3b217f9cf9bf5c00c64b786128068eb401c02ac360938e3e27835163',
++    },
++
++    {
++	'name': 'RFRemix 13.1 x86_64  LXDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13.1/Live/x86_64/RFRemix-13.1-x86_64-Live-LXDE.iso',
++	'sha256': '06dd4ec00975083695ef0db6b3ba92a8d37c58563dd1df383886922ed31a4459',
++    },
++
++    {
++	'name': 'RFRemix 13.1 x86_64  KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13.1/Live/x86_64/RFRemix-13.1-x86_64-Live-KDE.iso',
++	'sha256': '522146fe084b0deedc2d0447cbe65e0845e8b377c35c5a8e0b006b5aa87bdd06',
++    },
++
++    {
++	'name': 'RFRemix 13.1 x86_64 DVD',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13.1/Live/x86_64/RFRemix-13.1-x86_64-LiveDVD.iso',
++	'sha256': '4be3e11a295ec23787ac3a99f759a40437932727f0c51322e6eebb92487a05b1',
++    },
++
++    {
++	'name': 'RFRemix 13.1 x86_64  XFCE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13.1/Live/x86_64/RFRemix-13.1-x86_64-Live-XFCE.iso',
++	'sha256': 'dc7296a853ed6452fe376457abc5e6c4773a018578fb0f5d6d61ced183248b51',
++    },
++
++
++    {
++	'name': 'RFRemix 13 i686  KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13/Live/i686/RFRemix-13-i686-Live-KDE.iso',
++	'sha256': 'e50d82f1bb28ff6222765c0303b35dc82274ce0050e4b3660f76ebff4e3e0ef7',
++    },
++
++    {
++	'name': 'RFRemix 13 i686  GNOME',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13/Live/i686/RFRemix-13-i686-Live-GNOME.iso',
++	'sha256': 'c1c6deb92d5cdc45d90bc0eb7752fb25264980baafe0fa1a2936a9df2c0e668c',
++    },
++
++    {
++	'name': 'RFRemix 13 i686  LXDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13/Live/i686/RFRemix-13-i686-Live-LXDE.iso',
++	'sha256': '947bd167ac0c10c8d6d96517f1b1836c0b962dff670bb8c54910b55f16958533',
++    },
++
++    {
++	'name': 'RFRemix 13 i686  XFCE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13/Live/i686/RFRemix-13-i686-Live-XFCE.iso',
++	'sha256': '8654e8166243bbb67b195bfe9c380fc5ba747fb922a4b374d4f6b6ad9541690c',
++    },
++
++    {
++	'name': 'RFRemix 13 i686 DVD',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13/Live/i686/RFRemix-13-i686-LiveDVD.iso',
++	'sha256': 'cc547d918658134af00a3fdcd84cf118be8033a2e96a16028c52e37b5451cc84',
++    },
++
++    {
++	'name': 'RFRemix 13 i686 DVD KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13/Live/i686/RFRemix-13-i686-LiveDVD-KDE.iso',
++	'sha256': 'b3e2c81df232119edfdc1dad680a2d31465787866c477e8f7aed9577aef0ac9f',
++    },
++
++    {
++	'name': 'RFRemix 13 x86_64  LXDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13/Live/x86_64/RFRemix-13-x86_64-Live-LXDE.iso',
++	'sha256': 'f37ad235d7db32ba69334178621f0dc70f3ba7859e596defdad44f3365746b06',
++    },
++
++    {
++	'name': 'RFRemix 13 x86_64 DVD',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13/Live/x86_64/RFRemix-13-x86_64-LiveDVD.iso',
++	'sha256': 'd2ba5bbbe6ae0aef0f853cef9d9d08bc208b953261dc28e3659c4af7a7bf2859',
++    },
++
++    {
++	'name': 'RFRemix 13 x86_64  XFCE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13/Live/x86_64/RFRemix-13-x86_64-Live-XFCE.iso',
++	'sha256': 'e651cb84a3583f0da9be96dd0405a8d9a46d2595d79cc9430d461dba55a47555',
++    },
++
++    {
++	'name': 'RFRemix 13 x86_64 DVD KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13/Live/x86_64/RFRemix-13-x86_64-LiveDVD-KDE.iso',
++	'sha256': '8b754985386761fa3fb10e349fdd183509b92e76d3dee6488ccc22f2aed01a4e',
++    },
++
++    {
++	'name': 'RFRemix 13 x86_64  GNOME',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13/Live/x86_64/RFRemix-13-x86_64-Live-GNOME.iso',
++	'sha256': '2642c78ea88fabc401d382e3eb66358cef51c160171ed77606636c23c537ef07',
++    },
++
++    {
++	'name': 'RFRemix 13 x86_64  KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/13/Live/x86_64/RFRemix-13-x86_64-Live-KDE.iso',
++	'sha256': '422dc91230eebad08f8afda7fb3acc5af6266108948e7ec0c6fd6e4f9376c3d7',
++    },
++
++
+     {
+         'name': 'Fedora 13 (i686)',
+         'url': 'http://download.fedora.redhat.com/pub/fedora/linux/releases/13/Live/i686/Fedora-13-i686-Live.iso',
+@@ -24,6 +243,150 @@
+     },
+ 
+     {
++	'name': 'RFRemix 12.1 i686  GNOME',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12.1/Live/i686/RFRemix-12.1-i686-Live-GNOME.iso',
++	'sha256': 'f05216db00d527bed91730a37fc9074d8d21607ea5cf9e78289d1b15566c8a16',
++    },
++
++    {
++	'name': 'RFRemix 12.1 i686  XFCE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12.1/Live/i686/RFRemix-12.1-i686-Live-XFCE.iso',
++	'sha256': 'bacea4b673eed44246db3808b8c9af973da9655950ce8aa66e066653e74a3759',
++    },
++
++    {
++	'name': 'RFRemix 12.1 i686  LXDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12.1/Live/i686/RFRemix-12.1-i686-Live-LXDE.iso',
++	'sha256': 'bbb3d764c758ab7e21ca65643614fd3065c0ce9ac84cc2ed1b3699b09f58192e',
++    },
++
++    {
++	'name': 'RFRemix 12.1 i686  KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12.1/Live/i686/RFRemix-12.1-i686-Live-KDE.iso',
++	'sha256': '5eb547e66c110bcd9c45b548ede7438588135452a9155baf97d4cdbd7664063d',
++    },
++
++    {
++	'name': 'RFRemix 12.1 i686 DVD',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12.1/Live/i686/RFRemix-12.1-i686-LiveDVD.iso',
++	'sha256': '62a282bee664a3171afce6cc5581d1ad38ec01ff48c769d3f90582b97d3d18d6',
++    },
++
++    {
++	'name': 'RFRemix 12.1 i686 DVD KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12.1/Live/i686/RFRemix-12.1-i686-LiveDVD-KDE.iso',
++	'sha256': '7d772d2c578ff86997b170f1148ff5f8bb45656b617c4b8369ed9a7b5050739f',
++    },
++
++    {
++	'name': 'RFRemix 12.1 x86_64  KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12.1/Live/x86_64/RFRemix-12.1-x86_64-Live-KDE.iso',
++	'sha256': '8016f411ac5f7a068c08a39f1ec28bda3c1d6fbaae5544095b31ee5f9efeb14e',
++    },
++
++    {
++	'name': 'RFRemix 12.1 x86_64 DVD',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12.1/Live/x86_64/RFRemix-12.1-x86_64-LiveDVD.iso',
++	'sha256': 'a18984377a5d37e893a7ed1ecfed9f13918c714adbf20ac9155e926d2952bf01',
++    },
++
++    {
++	'name': 'RFRemix 12.1 x86_64  GNOME',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12.1/Live/x86_64/RFRemix-12.1-x86_64-Live-GNOME.iso',
++	'sha256': '8d34d3718d1f774623de92f2931edac97bc30c1d0d90d8650b203a9dd24e1232',
++    },
++
++    {
++	'name': 'RFRemix 12.1 x86_64  XFCE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12.1/Live/x86_64/RFRemix-12.1-x86_64-Live-XFCE.iso',
++	'sha256': '7c22efb965de8770ce9fe841fc5bb80df51c240518b9cfaa6dcaaacfcb53131a',
++    },
++
++    {
++	'name': 'RFRemix 12.1 x86_64  LXDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12.1/Live/x86_64/RFRemix-12.1-x86_64-Live-LXDE.iso',
++	'sha256': 'd1924ae0523bb23e9f903153066cf292713975e3385a9a6f12b360c1096492fa',
++    },
++
++    {
++	'name': 'RFRemix 12.1 x86_64 DVD KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12.1/Live/x86_64/RFRemix-12.1-x86_64-LiveDVD-KDE.iso',
++	'sha256': 'd9913727ec97b732e51dc9faa0c903c57667220e983bafd63abaa3acf212dc76',
++    },
++
++    {
++	'name': 'RFRemix 12 i686  LXDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12/Live/i686/RFRemix-12-i686-Live-LXDE.iso',
++	'sha256': 'f04e5890f536cf82ffe1e3162c42a42c02779f8e52369aedf77ab7b775cb6539',
++    },
++
++    {
++	'name': 'RFRemix 12 i686  GNOME',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12/Live/i686/RFRemix-12-i686-Live-GNOME.iso',
++	'sha256': '0de44a3802c099493d254069ccf20ea1082bc00eb33c13515966fc0f620899f6',
++    },
++
++    {
++	'name': 'RFRemix 12 i686  KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12/Live/i686/RFRemix-12-i686-Live-KDE.iso',
++	'sha256': '9fc5661efa9cfa587150b96e4c8d2e19a07c9ea4d0988d0ceb305982971aea69',
++    },
++
++    {
++	'name': 'RFRemix 12 i686 DVD',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12/Live/i686/RFRemix-12-i686-LiveDVD.iso',
++	'sha256': 'bd20577b4e440034cd57d2c82ac4bba4c5bef93d8f2901c3c8fbe64b200dc6df',
++    },
++
++    {
++	'name': 'RFRemix 12 i686 DVD KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12/Live/i686/RFRemix-12-i686-LiveDVD-KDE.iso',
++	'sha256': '646919ee2beb06aff502ce067b4d0a5b13774c2d6e3d7024177a702204d245af',
++    },
++
++    {
++	'name': 'RFRemix 12 i686  XFCE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12/Live/i686/RFRemix-12-i686-Live-XFCE.iso',
++	'sha256': 'e16a28c99263d736adb2f2ab623c545dcb1c839982bbf691bf78ecb652d5f107',
++    },
++
++    {
++	'name': 'RFRemix 12 x86_64  XFCE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12/Live/x86_64/RFRemix-12-x86_64-Live-XFCE.iso',
++	'sha256': 'f70e961cead63aed2a66ca882fbf6d252f6d45d9eea9e6b7a86b29529a3eebf8',
++    },
++
++    {
++	'name': 'RFRemix 12 x86_64 DVD KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12/Live/x86_64/RFRemix-12-x86_64-LiveDVD-KDE.iso',
++	'sha256': '7ea92a7add5e53983596bc276d4fd490b566c3d08c0bf2d4777309eab0f5dfd8',
++    },
++
++    {
++	'name': 'RFRemix 12 x86_64  KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12/Live/x86_64/RFRemix-12-x86_64-Live-KDE.iso',
++	'sha256': 'dc91582042e8953c0e7e3343b19e476b40c4070ed9a23f630effd8e85884a753',
++    },
++
++    {
++	'name': 'RFRemix 12 x86_64 DVD',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12/Live/x86_64/RFRemix-12-x86_64-LiveDVD.iso',
++	'sha256': '47296438b84a65e7cab2799d9681428f1e12ddc8654372b25d127372cf27793d',
++    },
++
++    {
++	'name': 'RFRemix 12 x86_64  GNOME',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12/Live/x86_64/RFRemix-12-x86_64-Live-GNOME.iso',
++	'sha256': '852415ac9c4bd2d941083a99f06c4059ba83833197f6ee2791e37f8684e769ba',
++    },
++
++    {
++	'name': 'RFRemix 12 x86_64  LXDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/12/Live/x86_64/RFRemix-12-x86_64-Live-LXDE.iso',
++	'sha256': '0dfbec1f81a88c30fa61eb22e0871f171ada625d8bd18a90d4b9631b5a9b971b',
++    },
++
++    {
+         'name': 'Fedora 12 (i686)',
+         'url': 'http://download.fedora.redhat.com/pub/fedora/linux/releases/12/Live/i686/Fedora-12-i686-Live.iso',
+         'sha256': '5ad27455df004ee23fbc5a05dfa039a14e59956dccf4e767d493601e0bfa4001',
+@@ -85,6 +448,79 @@
+         'sha1': 'a58634cf8dbd9e27db2b9cbf48d18c2e0dfe941e',
+     },
+ 
++    {
++	'name': 'RF 14 Beta i686 DVD',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/test/14-Beta/Live/i686/RF-14-Beta-i686-LiveDVD.iso',
++	'sha256': '99c692c3f0c1fb19eacb9bdbb77abee424ad0d2e0ceea99459dd33425f4f5cf2',
++    },
++
++    {
++	'name': 'RF 14 Beta i686  GNOME',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/test/14-Beta/Live/i686/RF-14-Beta-i686-Live-GNOME.iso',
++	'sha256': 'cce116b2f32096ce066894b848a6f206357e93bac0a89a88f6281c7f1384d7d0',
++    },
++
++    {
++	'name': 'RF 14 Beta i686 DVD KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/test/14-Beta/Live/i686/RF-14-Beta-i686-LiveDVD-KDE.iso',
++	'sha256': 'd2d098208661f0795575fca2e7540cf246246251cdfb5b7108de3ed5fe7dccb4',
++    },
++
++    {
++	'name': 'RF 14 Beta i686  KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/test/14-Beta/Live/i686/RF-14-Beta-i686-Live-KDE.iso',
++	'sha256': 'c68e1391a4ba71b614f44f2106cb4452296d899c415a2652f3f5f79996d27cc3',
++    },
++
++    {
++	'name': 'RF 14 Beta i686  LXDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/test/14-Beta/Live/i686/RF-14-Beta-i686-Live-LXDE.iso',
++	'sha256': '709373fad93080a18eeaee1ee539463e1b15d72c926de186abe92a94585c9b9c',
++    },
++
++    {
++	'name': 'RF 14 Beta i686  XFCE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/test/14-Beta/Live/i686/RF-14-Beta-i686-Live-XFCE.iso',
++	'sha256': '86289b3de8ad028985e0574121bca3304b35a80badadb4622cb2460138370dc2',
++    },
++
++    {
++	'name': 'RF 14 Beta x86_64  KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/test/14-Beta/Live/x86_64/RF-14-Beta-x86_64-Live-KDE.iso',
++	'sha256': 'a0faf43093423e537466f2a749d29e62be0eb82f501cceafa608729d9b45352c',
++    },
++
++    {
++	'name': 'RF 14 Beta x86_64  LXDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/test/14-Beta/Live/x86_64/RF-14-Beta-x86_64-Live-LXDE.iso',
++	'sha256': '1dbc82286a11bcd882851ae414029f3d26d81077ba093286abda6f97dd6572d9',
++    },
++
++    {
++	'name': 'RF 14 Beta x86_64 DVD KDE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/test/14-Beta/Live/x86_64/RF-14-Beta-x86_64-LiveDVD-KDE.iso',
++	'sha256': '50e97be1b2611ad8bd9ef978e4eef1625220d4a38a07eb37eec2f9ae0d31ad54',
++    },
++
++    {
++	'name': 'RF 14 Beta x86_64  GNOME',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/test/14-Beta/Live/x86_64/RF-14-Beta-x86_64-Live-GNOME.iso',
++	'sha256': 'd38e70dcb3915dda65f037acf27114ab81c9fd8d5a5959153145652920d50f17',
++    },
++
++    {
++	'name': 'RF 14 Beta x86_64  XFCE',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/test/14-Beta/Live/x86_64/RF-14-Beta-x86_64-Live-XFCE.iso',
++	'sha256': '6daeea081465de0ff7dcd6a9ce550f551903ad1296775d0e871e02a08ea96657',
++    },
++
++    {
++	'name': 'RF 14 Beta x86_64 DVD',
++	'url': 'http://mirror.yandex.ru//fedora/russianfedora/releases/test/14-Beta/Live/x86_64/RF-14-Beta-x86_64-LiveDVD.iso',
++	'sha256': '10a9277c7b123c75968877297b141b60e88b5276f953580f1f085c1e8ef369ec',
++    },
++
++
+     ##
+     ## Custom spins
+     ##

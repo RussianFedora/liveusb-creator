@@ -2,13 +2,14 @@
 
 Name:           liveusb-creator
 Version:        3.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}.2
 Summary:        A liveusb creator
 
 Group:          Applications/System
 License:        GPLv2
 URL:            https://fedorahosted.org/liveusb-creator
 Source0:        https://fedorahosted.org/releases/l/i/liveusb-creator/%{name}-%{version}.tar.bz2
+Patch0:		liveusb-creator-3.9.2-add-rfremix.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
@@ -20,11 +21,14 @@ Requires:       syslinux, PyQt4, usermode, isomd5sum
 Requires:       python-urlgrabber
 Requires:       pyparted >= 2.0
 
+
 %description
 A liveusb creator from Live Fedora images
 
 %prep
 %setup -q
+%patch0 -p1 -b .add-rfremix
+
 
 %build
 %{__python} setup.py build
@@ -68,6 +72,15 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Tue Nov  2 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 3.9.2-2.2
+- add RFRemix 14 Lives
+
+* Tue Nov  2 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 3.9.2-2.1
+- rebuilt for RFRemix 14
+
+* Wed Oct  6 2010 Alexei Panov <elemc@atisserv.ru> - 3.9.2-1.1
+- Add rfremix releases to download list
+
 * Tue Jun 15 2010 Luke Macken <lmacken@redhat.com> - 3.9.2-1
 - 3.9.2
 
