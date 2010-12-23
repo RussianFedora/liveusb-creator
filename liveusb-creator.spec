@@ -2,7 +2,7 @@
 
 Name:           liveusb-creator
 Version:        3.9.2
-Release:        1%{?dist}
+Release:        1.1%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -20,11 +20,14 @@ Requires:       syslinux, PyQt4, usermode, isomd5sum
 Requires:       python-urlgrabber
 Requires:       pyparted >= 2.0
 
+Patch10:	add-rfr-releases.patch
+
 %description
 A liveusb creator from Live Fedora images
 
 %prep
 %setup -q
+%patch10 -p0 -b .rfremix-releases
 
 %build
 %{__python} setup.py build
@@ -68,6 +71,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Wed Oct  6 2010 Alexei Panov <elemc@atisserv.ru> - 3.9.2-1.1
+- Add rfremix releases to download list
+
 * Tue Jun 15 2010 Luke Macken <lmacken@redhat.com> - 3.9.2-1
 - 3.9.2
 
