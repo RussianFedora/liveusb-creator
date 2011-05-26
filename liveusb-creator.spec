@@ -1,8 +1,8 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           liveusb-creator
-Version:        3.9.2
-Release:        2%{?dist}
+Version:        3.11.0
+Release:        1%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -19,6 +19,7 @@ BuildRequires:  python-devel, python-setuptools, PyQt4-devel, desktop-file-utils
 Requires:       syslinux, PyQt4, usermode, isomd5sum
 Requires:       python-urlgrabber
 Requires:       pyparted >= 2.0
+Requires:       syslinux-extlinux
 
 %description
 A liveusb creator from Live Fedora images
@@ -68,6 +69,16 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Mon Apr 25 2011 Luke Macken <lmacken@redhat.com> - 3.11.0-1
+- Latest upstream release
+
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.9.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
+* Mon Jan 10 2011 Luke Macken <lmacken@redhat.com> - 3.9.3-1
+- Update to 3.9.3
+- Require syslinux-extlinux (#664093, #665002)
+
 * Wed Jul 21 2010 David Malcolm <dmalcolm@redhat.com> - 3.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
 
