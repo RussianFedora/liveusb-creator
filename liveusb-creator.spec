@@ -2,7 +2,7 @@
 
 Name:           liveusb-creator
 Version:        3.11.0
-Release:        1%{?dist}
+Release:        1%{?dist}.R1
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -21,11 +21,14 @@ Requires:       python-urlgrabber
 Requires:       pyparted >= 2.0
 Requires:       syslinux-extlinux
 
+Patch1:		rfrm-546.patch
+
 %description
 A liveusb creator from Live Fedora images
 
 %prep
 %setup -q
+%patch1 -p1 -b .rfrm-546
 
 %build
 %{__python} setup.py build
