@@ -2,7 +2,7 @@
 
 Name:           liveusb-creator
 Version:        3.11.0
-Release:        1%{?dist}.R1
+Release:        1%{?dist}.2.R
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -22,6 +22,7 @@ Requires:       pyparted >= 2.0
 Requires:       syslinux-extlinux
 
 Patch1:		rfrm-546.patch
+Patch2:		liveusb-creator-3.11.0-rfrimages.patch
 
 %description
 A liveusb creator from Live Fedora images
@@ -29,6 +30,7 @@ A liveusb creator from Live Fedora images
 %prep
 %setup -q
 %patch1 -p1 -b .rfrm-546
+%patch2 -p1 -b .rfrimages
 
 %build
 %{__python} setup.py build
@@ -72,6 +74,10 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Sat May 28 2011 Alexei Panov <elemc [AT] atisserv [DOT] ru> - 3.11.0-1.2.R
+- fix rfrm#546
+- add RFRemix images to list
+
 * Mon Apr 25 2011 Luke Macken <lmacken@redhat.com> - 3.11.0-1
 - Latest upstream release
 
