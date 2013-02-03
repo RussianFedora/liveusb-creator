@@ -9,6 +9,8 @@ Group:          Applications/System
 License:        GPLv2
 URL:            https://fedorahosted.org/liveusb-creator
 Source0:        https://fedorahosted.org/releases/l/i/liveusb-creator/%{name}-%{version}.tar.bz2
+Source1:        get_releases.py
+Source2:        releases.py
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
@@ -27,6 +29,7 @@ A liveusb creator from Live Fedora images
 
 %prep
 %setup -q
+cp %SOURCE2 liveusb/
 
 %build
 %{__python} setup.py build
@@ -70,6 +73,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Sun Feb  3 2013 Ivan Romanov <drizt@land.ru> - 3.11.7-2.R
+- added RFRemix images
+
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.11.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
