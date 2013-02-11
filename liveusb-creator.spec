@@ -8,7 +8,7 @@ Summary:        A liveusb creator
 Group:          Applications/System
 License:        GPLv2
 URL:            https://fedorahosted.org/liveusb-creator
-Source0:        https://fedorahosted.org/releases/l/i/liveusb-creator/%{name}-%{version}.tar.bz2
+Source0:        http://fedorahosted.org/releases/l/i/liveusb-creator/%{name}-%{version}.tar.bz2
 # This script generates python dict with all RFRemix and Fedora images.
 # Paste it to releases.py.
 Source1:        get_releases.py
