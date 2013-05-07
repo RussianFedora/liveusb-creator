@@ -1,7 +1,13 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
+%if (0%{?fedora} && 0%{?fedora} < 19) || (0%{?rhel} && 0%{?rhel} < 7)
+%global with_desktop_vendor_tag 1
+%else
+%global with_desktop_vendor_tag 0
+%endif
+
 Name:           liveusb-creator
-Version:        3.11.7
+Version:        3.11.8
 Release:        2%{?dist}
 Summary:        A liveusb creator
 
@@ -52,10 +58,15 @@ cp %{name}.pam %{buildroot}%{_sysconfdir}/pam.d/%{name}
 mkdir -p %{buildroot}%{_sysconfdir}/security/console.apps
 cp %{name}.console %{buildroot}%{_sysconfdir}/security/console.apps/%{name}
 
-desktop-file-install --vendor="fedora"                    \
+desktop-file-install \
+%if %{with_desktop_vendor_tag}
+  --vendor fedora \
+%endif
 --dir=%{buildroot}%{_datadir}/applications           \
 %{buildroot}/%{_datadir}/applications/liveusb-creator.desktop
+%if %{with_desktop_vendor_tag}
 rm -rf %{buildroot}/%{_datadir}/applications/liveusb-creator.desktop
+%endif
 
 %find_lang %{name}
 
@@ -68,15 +79,24 @@ rm -rf %{buildroot}
 %{python_sitelib}/*
 %{_bindir}/%{name}
 %{_sbindir}/%{name}
-%{_datadir}/applications/fedora-liveusb-creator.desktop
+%{_datadir}/applications/*liveusb-creator.desktop
 %{_datadir}/pixmaps/fedorausb.png
 #%{_datadir}/locale/*/LC_MESSAGES/liveusb-creator.mo
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
-* Sun Feb  3 2013 Ivan Romanov <drizt@land.ru> - 3.11.7-2.R
+* Tue May  7 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-2.R
 - added RFRemix images
+
+* Fri Apr 26 2013 Jon Ciesla <limburgher@gmail.com> - 3.11.8-2
+- Drop desktop vendor tag.
+
+* Mon Apr 22 2013 Luke Macken <lmacken@redhat.com> - 3.11.8-1
+- Update to 3.11.8
+
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.11.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.11.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
