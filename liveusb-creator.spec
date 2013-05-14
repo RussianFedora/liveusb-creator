@@ -8,17 +8,14 @@
 
 Name:           liveusb-creator
 Version:        3.11.8
-Release:        2%{?dist}
+Release:        2.1%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
 License:        GPLv2
 URL:            https://fedorahosted.org/liveusb-creator
 Source0:        https://fedorahosted.org/releases/l/i/liveusb-creator/%{name}-%{version}.tar.gz
-# This script generates python dict with all RFRemix and Fedora images.
-# Paste it to releases.py.
-Source1:        get_releases.py
-Source2:        releases.py
+Patch0:         liveusb-creator-rfremix-images.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
@@ -37,7 +34,7 @@ A liveusb creator from Live Fedora images
 
 %prep
 %setup -q
-cp %SOURCE2 liveusb/
+%patch0 -p1
 
 %build
 %{__python} setup.py build
@@ -86,6 +83,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Wed May 15 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-2.1.R
+- use a patch instead of a source
+
 * Tue May  7 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-2.R
 - added RFRemix images
 
