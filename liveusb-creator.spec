@@ -85,7 +85,7 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
-Wed Jun 26 2013 Adam Williamson <awilliam@redhat.com> - 3.11.8-3.R
+* Wed Jun 26 2013 Adam Williamson <awilliam@redhat.com> - 3.11.8-3.R
 - require usermode-gtk (or else it doesn't run from menus): #976415
 
 * Wed May 15 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-2.1.R
