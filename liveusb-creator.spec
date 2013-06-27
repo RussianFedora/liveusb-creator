@@ -8,7 +8,7 @@
 
 Name:           liveusb-creator
 Version:        3.11.8
-Release:        2.1%{?dist}
+Release:        3%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -28,6 +28,8 @@ Requires:       python-urlgrabber
 Requires:       pyparted >= 2.0
 Requires:       syslinux-extlinux
 Requires:       udisks
+# https://bugzilla.redhat.com/show_bug.cgi?id=976415
+Requires:       usermode-gtk
 
 %description
 A liveusb creator from Live Fedora images
@@ -83,6 +85,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+Wed Jun 26 2013 Adam Williamson <awilliam@redhat.com> - 3.11.8-3.R
+- require usermode-gtk (or else it doesn't run from menus): #976415
+
 * Wed May 15 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-2.1.R
 - use a patch instead of a source
 
