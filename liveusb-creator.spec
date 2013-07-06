@@ -8,7 +8,7 @@
 
 Name:           liveusb-creator
 Version:        3.11.8
-Release:        3%{?dist}
+Release:        3.1%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -85,6 +85,9 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
+* Sat Jul  6 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-3.1.R
+- added releases to default list
+
 * Wed Jun 26 2013 Adam Williamson <awilliam@redhat.com> - 3.11.8-3.R
 - require usermode-gtk (or else it doesn't run from menus): #976415
 

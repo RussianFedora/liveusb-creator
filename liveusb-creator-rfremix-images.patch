@@ -1,5 +1,5 @@
 diff --git a/liveusb/gui.py b/liveusb/gui.py
-index 659516e..b4b6d79 100755
+index 659516e..ff18e1b 100755
 --- a/liveusb/gui.py
 +++ b/liveusb/gui.py
 @@ -34,7 +34,7 @@ from datetime import datetime
@@ -11,15 +11,6 @@ index 659516e..b4b6d79 100755
  if sys.platform == 'win32':
      from liveusb.urlgrabber.grabber import URLGrabber, URLGrabError
      from liveusb.urlgrabber.progress import BaseMeter
-@@ -277,7 +277,7 @@ class LiveUSBDialog(QtGui.QDialog, LiveUSBInterface):
-         self.args = args
-         self.setupUi(self)
-         self.live = LiveUSBCreator(opts=opts)
--        self.populate_releases()
-+        self.refresh_releases()
-         self.populate_devices()
-         self.downloader = None
-         self.progress_thread = ProgressThread()
 @@ -338,7 +338,7 @@ class LiveUSBDialog(QtGui.QDialog, LiveUSBInterface):
  
      def refresh_releases(self):
@@ -30,10 +21,10 @@ index 659516e..b4b6d79 100755
          for release in [release['name'] for release in fedora_releases]:
              self.downloadCombo.addItem(release)
 diff --git a/liveusb/releases.py b/liveusb/releases.py
-index b483d7b..eb8e11c 100644
+index b483d7b..7ba7aa4 100644
 --- a/liveusb/releases.py
 +++ b/liveusb/releases.py
-@@ -3,7 +3,8 @@ from urlgrabber import urlread
+@@ -3,48 +3,146 @@ from urlgrabber import urlread
  from urlgrabber.grabber import URLGrabError
  
  FEDORA_RELEASES = 'http://dl.fedoraproject.org/pub/fedora/linux/releases/'
@@ -43,7 +34,181 @@ index b483d7b..eb8e11c 100644
  
  # A backup list of releases, just in case we can't fetch them.
  fedora_releases = [
-@@ -59,39 +60,52 @@ other_releases = [
+-    {'name': 'Fedora 18 i686 Desktop',
+-     'sha256': '7c7f453c15a5d13df95bf8caab6277e5aab1c6353eb242b1cf00344b61869d26',
+-     'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/18/Live/i386/Fedora-18-i686-Live-Desktop.iso'},
+-    {'name': 'Fedora 18 i686 KDE',
+-     'sha256': 'f172192566d0e12c29a741a568a917c5d8643aa781fdf06598b12a217a58cb74',
+-     'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/18/Live/i386/Fedora-18-i686-Live-KDE.iso'},
+-    {'name': 'Fedora 18 x86_64 Desktop',
+-     'sha256': 'a276e06d244e04b765f0a35532d9036ad84f340b0bdcc32e0233a8fbc31d5bed',
+-     'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/18/Live/x86_64/Fedora-18-x86_64-Live-Desktop.iso'},
+-    {'name': 'Fedora 18 x86_64 KDE',
+-     'sha256': '41d51d86ff5c272263285d00a0c3da7acbbce404b9930b0ff8bd7226e7248805',
+-     'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/18/Live/x86_64/Fedora-18-x86_64-Live-KDE.iso'},
+-    {'name': 'Fedora 17 i686 Desktop',
+-     'sha256': '26027f4d4686f1df186b31ce773dbb903db18f4b1aa37a1e37f0fa6ff4111f42',
+-     'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/17/Live/i686/Fedora-17-i686-Live-Desktop.iso'},
+-    {'name': 'Fedora 17 i686 KDE',
+-     'sha256': 'f10142bb0a4d91a0d8320a925fa33ab3a87d9764b03137bb30506830c1068583',
+-     'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/17/Live/i686/Fedora-17-i686-Live-KDE.iso'},
+-    {'name': 'Fedora 17 x86_64 Desktop',
+-     'sha256': 'dfd19d677790fea6144bcf537cd031dfb0a50e6c56652c94bfc71ea7bb949f2c',
+-     'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/17/Live/x86_64/Fedora-17-x86_64-Live-Desktop.iso'},
+-    {'name': 'Fedora 17 x86_64 KDE',
+-     'sha256': '58b9abf5ef6a07b75b6a934468c783ab18e5a1236e6e5ab75dc2b39ca7680462',
+-     'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/17/Live/x86_64/Fedora-17-x86_64-Live-KDE.iso'},
+-    {'name': 'Fedora 16 i686 Desktop',
+-     'sha256': '561d2c15fa79c319959cfc821650c829860651d1e5b125b2a425ac9cbd3fe1bb',
+-     'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/16/Live/i686/Fedora-16-i686-Live-Desktop.iso'},
+-    {'name': 'Fedora 16 i686 KDE',
+-     'sha256': '822567e4b05f7be6b89c14e6165f4c9e0f388379c3f90e0bf439dd8397e87a3f',
+-     'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/16/Live/i686/Fedora-16-i686-Live-KDE.iso'},
+-    {'name': 'Fedora 16 x86_64 Desktop',
+-     'sha256': '632b2de39033ed1d4a61959c4002e07248793eff828ac5d60edbb7b5dcd7be5c',
+-     'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/16/Live/x86_64/Fedora-16-x86_64-Live-Desktop.iso'},
+-    {'name': 'Fedora 16 x86_64 KDE',
+-     'sha256': 'b10ff86610e46244b11f0a411915e80ca4fdf1e8ec20ee5b61f700feb0716ba8',
+-     'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/16/Live/x86_64/Fedora-16-x86_64-Live-KDE.iso'},
++ {'name': 'RFRemix 19 x86_64 GNOME',
++  'sha256': 'dc9d5a520292173bc92da7f773490aa3cca98ca2a41c6ae5b610d51dc32ceb38',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19/Live/x86_64/RFRemix-19-x86_64-Live-GNOME.iso'},
++ {'name': 'RFRemix 19 x86_64 KDE',
++  'sha256': '7d9947a14adf1e9b13b63c9bdd33567034165a1f4530c36bef7c42050e3a88ec',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19/Live/x86_64/RFRemix-19-x86_64-Live-KDE.iso'},
++ {'name': 'RFRemix 19 x86_64 KDE minimal',
++  'sha256': 'e2db106ff9951fa512cb2eb267ebf21d501661e107788b321a8d7ff02584eea9',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19/Live/x86_64/RFRemix-19-x86_64-Live-KDE-minimal.iso'},
++ {'name': 'RFRemix 19 x86_64 LXDE',
++  'sha256': 'd4ff735e47ed7da4caeb5f3be388245e1fafe53721583e680cd79710402b4789',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19/Live/x86_64/RFRemix-19-x86_64-Live-LXDE.iso'},
++ {'name': 'RFRemix 19 x86_64 MATE',
++  'sha256': 'c9387476ff4e825a07ff56fe03bd5c9e2c5eefbcf9737827d903d558c3009149',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19/Live/x86_64/RFRemix-19-x86_64-Live-MATE.iso'},
++ {'name': 'RFRemix 19 x86_64 XFCE',
++  'sha256': 'a325a58fe4d9207560c71dcaa140bb1b9a60538383ebbb7b9a861b4ed4ba45c8',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19/Live/x86_64/RFRemix-19-x86_64-Live-XFCE.iso'},
++ {'name': 'RFRemix 19 i686 GNOME',
++  'sha256': '20bae15d5d0e9333070c6a5efcc4b88a6a66274c4c6b9d27e22ba366ec9c8dff',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19/Live/i686/RFRemix-19-i686-Live-GNOME.iso'},
++ {'name': 'RFRemix 19 i686 KDE',
++  'sha256': 'c780eb27cdfa28a3fb98f12fbb3c7e70338d3233d29a78a8340c1aded47a2d0e',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19/Live/i686/RFRemix-19-i686-Live-KDE.iso'},
++ {'name': 'RFRemix 19 i686 KDE minimal',
++  'sha256': 'c41a1ad69e3763efbe5e43927c0d857fc9c9a5667b6e2dba8d3a8a927d56f6d0',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19/Live/i686/RFRemix-19-i686-Live-KDE-minimal.iso'},
++ {'name': 'RFRemix 19 i686 LXDE',
++  'sha256': 'fa755750426d15c522f1c4c8915465a09d7a10c91b6bd91e71bb4884a64aea0e',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19/Live/i686/RFRemix-19-i686-Live-LXDE.iso'},
++ {'name': 'RFRemix 19 i686 MATE',
++  'sha256': '450125d4aae070db27bc13d4efa291dc06e21a8a540d3ce5d69f435d47788ae3',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19/Live/i686/RFRemix-19-i686-Live-MATE.iso'},
++ {'name': 'RFRemix 19 i686 XFCE',
++  'sha256': '9d28319af08ce6f4aaef4ac871f49b0f33cee3000fdfcf195e0c8f50480be410',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19/Live/i686/RFRemix-19-i686-Live-XFCE.iso'},
++ {'name': 'RFRemix 18 x86_64 GNOME',
++  'sha256': '60b4d58095e8c4770b6279bb320c972d71ed43700304f96ac3ca5d90960739cc',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/18/Live/x86_64/RFRemix-18-x86_64-Live-GNOME.iso'},
++ {'name': 'RFRemix 18 x86_64 KDE',
++  'sha256': '8deb565fa994a809bb7edcf76e379d12f7833b0d3c25ddad7ce96608c04bb5bc',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/18/Live/x86_64/RFRemix-18-x86_64-Live-KDE.iso'},
++ {'name': 'RFRemix 18 x86_64 KDE minimal',
++  'sha256': 'f69fef6c16678d5bc6859c0a33be7f589669b1fc68d7719714ca2dd1dec61709',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/18/Live/x86_64/RFRemix-18-x86_64-Live-KDE-minimal.iso'},
++ {'name': 'RFRemix 18 x86_64 LXDE',
++  'sha256': 'ecb20550edf72b0fd68d93b36829b939ed798e825a3e50dc06a2dd94d2aa5fd5',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/18/Live/x86_64/RFRemix-18-x86_64-Live-LXDE.iso'},
++ {'name': 'RFRemix 18 x86_64 MATE',
++  'sha256': '967bd7cb4dd408063b2aaf5a49e3756406e8206de764a015a077fe1dcd198887',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/18/Live/x86_64/RFRemix-18-x86_64-Live-MATE.iso'},
++ {'name': 'RFRemix 18 x86_64 XFCE',
++  'sha256': 'af6a36de479cccb0743433e6b512e53b85843565e1fc442d3979fca09119cd19',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/18/Live/x86_64/RFRemix-18-x86_64-Live-XFCE.iso'},
++ {'name': 'RFRemix 18 i686 GNOME',
++  'sha256': 'dbc6341ff05a95a4c4607c962fa588adf9c9f71c838ae01729045c5c51ce4675',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/18/Live/i686/RFRemix-18-i686-Live-GNOME.iso'},
++ {'name': 'RFRemix 18 i686 KDE',
++  'sha256': '32a297e707676aff01083492a8a26022fc66e4cff7792c0a0983219b7f68ae20',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/18/Live/i686/RFRemix-18-i686-Live-KDE.iso'},
++ {'name': 'RFRemix 18 i686 KDE minimal',
++  'sha256': '16a7aaa1d9fa849050376bf9a83ea2e2e9f6e52e1da91829afcc2c1f6939faf3',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/18/Live/i686/RFRemix-18-i686-Live-KDE-minimal.iso'},
++ {'name': 'RFRemix 18 i686 LXDE',
++  'sha256': 'a3ac8f23570f1bfec2e132ec7b6274ae7cc2420cb41a855ae2125b294d417755',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/18/Live/i686/RFRemix-18-i686-Live-LXDE.iso'},
++ {'name': 'RFRemix 18 i686 MATE',
++  'sha256': '71288cd67772001ea74c1bf9f2404d4c79e02a6ee67d374a8606caea44d47017',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/18/Live/i686/RFRemix-18-i686-Live-MATE.iso'},
++ {'name': 'RFRemix 18 i686 XFCE',
++  'sha256': 'decba4be40c64e8eef7ab138251cf4f350b1e62ea39cc3a78ceae5361ce49998',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/18/Live/i686/RFRemix-18-i686-Live-XFCE.iso'},
++ {'name': 'RFRemix 17.1 x86_64 GNOME',
++  'sha256': '21389b32cae5eeab6a1e88590128320faba6e10e2e67290c13a246c62f2bda4c',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/17.1/Live/x86_64/RFRemix-17.1-x86_64-Live-GNOME.iso'},
++ {'name': 'RFRemix 17.1 x86_64 KDE',
++  'sha256': '5a28ab57556fbe9b05d6e425df3f68dce619b96d8ff0465f817bf3546ce83099',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/17.1/Live/x86_64/RFRemix-17.1-x86_64-Live-KDE.iso'},
++ {'name': 'RFRemix 17.1 x86_64 LXDE',
++  'sha256': '4674a035d41a69adf6b01a44270f0e0bc685f710f63dfe3fe0f4e51c0a6deff3',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/17.1/Live/x86_64/RFRemix-17.1-x86_64-Live-LXDE.iso'},
++ {'name': 'RFRemix 17.1 x86_64 XFCE',
++  'sha256': '98093c34cc99e710c2f0f2475f2180551c09ff7ecdc40591336179aa4331f4b2',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/17.1/Live/x86_64/RFRemix-17.1-x86_64-Live-XFCE.iso'},
++ {'name': 'RFRemix 17.1 i686 GNOME',
++  'sha256': 'b6ce12d2f634c8acc9d44c0eff24bbf493396eeb787e96f1a65c571f3498f6f2',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/17.1/Live/i686/RFRemix-17.1-i686-Live-GNOME.iso'},
++ {'name': 'RFRemix 17.1 i686 KDE',
++  'sha256': 'c07e85fd0141ec48b7966992114f12cc8dc94fd263fc02b94e2ca2acab40f8c1',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/17.1/Live/i686/RFRemix-17.1-i686-Live-KDE.iso'},
++ {'name': 'RFRemix 17.1 i686 LXDE',
++  'sha256': 'd298da7b750ed5c6759354f9fbf982c3862268c0131e1c89de8306c8a3806d82',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/17.1/Live/i686/RFRemix-17.1-i686-Live-LXDE.iso'},
++ {'name': 'RFRemix 17.1 i686 XFCE',
++  'sha256': 'c879795e44a9074cd94778a95fd337f62af2461b00030986141d75c7939b9ea4',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/17.1/Live/i686/RFRemix-17.1-i686-Live-XFCE.iso'},
++ {'name': 'Fedora Desktop x86_64 19 1',
++  'sha256': '21f0197284b9088b32d683f83a71bd42261f1df885a63b1eb87254d1ca096f12',
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/19/Live/x86_64/Fedora-Live-Desktop-x86_64-19-1.iso'},
++ {'name': 'Fedora KDE x86_64 19 1',
++  'sha256': 'f4479d5639f62d7398722c6a432ba94711b80d5011d5b64e7afebb4f4ac10cf7',
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/19/Live/x86_64/Fedora-Live-KDE-x86_64-19-1.iso'},
++ {'name': 'Fedora Desktop i686 19 1',
++  'sha256': 'ce9797802ef1f7aa670fffd04f209631c171b8ded5dc26f61df898cb9441c839',
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/19/Live/i386/Fedora-Live-Desktop-i686-19-1.iso'},
++ {'name': 'Fedora KDE i686 19 1',
++  'sha256': 'e81717564f96ee0f8c6d8b0186e7fca44da57f2ef154ea427b6d765ea139a083',
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/19/Live/i386/Fedora-Live-KDE-i686-19-1.iso'},
++ {'name': 'Fedora 18 x86_64 Desktop',
++  'sha256': 'a276e06d244e04b765f0a35532d9036ad84f340b0bdcc32e0233a8fbc31d5bed',
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/18/Live/x86_64/Fedora-18-x86_64-Live-Desktop.iso'},
++ {'name': 'Fedora 18 x86_64 KDE',
++  'sha256': '41d51d86ff5c272263285d00a0c3da7acbbce404b9930b0ff8bd7226e7248805',
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/18/Live/x86_64/Fedora-18-x86_64-Live-KDE.iso'},
++ {'name': 'Fedora 18 i686 Desktop',
++  'sha256': '7c7f453c15a5d13df95bf8caab6277e5aab1c6353eb242b1cf00344b61869d26',
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/18/Live/i386/Fedora-18-i686-Live-Desktop.iso'},
++ {'name': 'Fedora 18 i686 KDE',
++  'sha256': 'f172192566d0e12c29a741a568a917c5d8643aa781fdf06598b12a217a58cb74',
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/18/Live/i386/Fedora-18-i686-Live-KDE.iso'},
++ {'name': 'Fedora 17 x86_64 Desktop',
++  'sha256': 'dfd19d677790fea6144bcf537cd031dfb0a50e6c56652c94bfc71ea7bb949f2c',
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/17/Live/x86_64/Fedora-17-x86_64-Live-Desktop.iso'},
++ {'name': 'Fedora 17 x86_64 KDE',
++  'sha256': '58b9abf5ef6a07b75b6a934468c783ab18e5a1236e6e5ab75dc2b39ca7680462',
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/17/Live/x86_64/Fedora-17-x86_64-Live-KDE.iso'},
++ {'name': 'Fedora 17 i686 Desktop',
++  'sha256': '26027f4d4686f1df186b31ce773dbb903db18f4b1aa37a1e37f0fa6ff4111f42',
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/17/Live/i686/Fedora-17-i686-Live-Desktop.iso'},
++ {'name': 'Fedora 17 i686 KDE',
++  'sha256': 'f10142bb0a4d91a0d8320a925fa33ab3a87d9764b03137bb30506830c1068583',
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/17/Live/i686/Fedora-17-i686-Live-KDE.iso'}
+ ]
+ 
++
+ other_releases = [
+     ##
+     ## Custom spins
+@@ -59,39 +157,52 @@ other_releases = [
  releases = fedora_releases + other_releases
  
  
