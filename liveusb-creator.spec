@@ -8,7 +8,7 @@
 
 Name:           liveusb-creator
 Version:        3.11.8
-Release:        3.1%{?dist}
+Release:        4%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -85,17 +85,14 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
-* Sat Jul  6 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-3.1.R
-- added releases to default list
+* Sun Aug  04 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-4.R
+- added patch for RFRemix images
 
-* Wed Jun 26 2013 Adam Williamson <awilliam@redhat.com> - 3.11.8-3.R
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.11.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
+* Wed Jun 26 2013 Adam Williamson <awilliam@redhat.com> - 3.11.8-3
 - require usermode-gtk (or else it doesn't run from menus): #976415
-
-* Wed May 15 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-2.1.R
-- use a patch instead of a source
-
-* Tue May  7 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-2.R
-- added RFRemix images
 
 * Fri Apr 26 2013 Jon Ciesla <limburgher@gmail.com> - 3.11.8-2
 - Drop desktop vendor tag.
