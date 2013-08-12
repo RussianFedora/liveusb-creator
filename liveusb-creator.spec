@@ -8,7 +8,7 @@
 
 Name:           liveusb-creator
 Version:        3.11.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -21,6 +21,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 ExcludeArch:    ppc
 ExcludeArch:    ppc64
+ExcludeArch:    armhfp
 
 BuildRequires:  python-devel, python-setuptools, PyQt4-devel, desktop-file-utils gettext
 Requires:       syslinux, PyQt4, usermode, isomd5sum
@@ -85,8 +86,11 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
-* Sun Aug  04 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-4.R
+* Mon Aug 12 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-5.R
 - added patch for RFRemix images
+
+* Sat Aug 10 2013 Luke Macken <lmacken@redhat.com> 3.11.8-5
+- Exclude building for armhfp, since syslinux is not available.
 
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.11.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
