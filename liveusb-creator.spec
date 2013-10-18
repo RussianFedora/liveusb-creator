@@ -7,8 +7,8 @@
 %endif
 
 Name:           liveusb-creator
-Version:        3.11.8
-Release:        6%{?dist}
+Version:        3.12.0
+Release:        1%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -86,8 +86,11 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
-* Sat Oct 12 2013 Ivan Romanov <drizt@land.ru> - 3.11.8-6.R
+* Fri Oct 18 2013 Ivan Romanov <drizt@land.ru> - 3.12.0-1.R
 - added patch for RFRemix images
+
+* Wed Oct 16 2013 Luke Macken <lmacken@redhat.com> 3.12.0-1
+- Update to 3.12.0
 
 * Wed Aug 14 2013 Luke Macken <lmacken@redhat.com> 3.11.8-6
 - Fix the ExcludeArch for arm
