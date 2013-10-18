@@ -1,5 +1,5 @@
 diff --git a/liveusb/gui.py b/liveusb/gui.py
-index 659516e..ff18e1b 100755
+index 7a91dcf..3d95c4f 100755
 --- a/liveusb/gui.py
 +++ b/liveusb/gui.py
 @@ -34,7 +34,7 @@ from datetime import datetime
@@ -11,26 +11,27 @@ index 659516e..ff18e1b 100755
  if sys.platform == 'win32':
      from liveusb.urlgrabber.grabber import URLGrabber, URLGrabError
      from liveusb.urlgrabber.progress import BaseMeter
-@@ -338,7 +338,7 @@ class LiveUSBDialog(QtGui.QDialog, LiveUSBInterface):
+@@ -338,8 +338,7 @@ class LiveUSBDialog(QtGui.QDialog, LiveUSBInterface):
  
      def refresh_releases(self):
          self.live.log.info(_('Refreshing releases...'))
--        fedora_releases = get_fedora_releases()
-+        fedora_releases = get_fedora_releases(RFREMIX_RELEASES) + get_fedora_releases(FEDORA_RELEASES)
+-        global releases
+-        releases = get_fedora_releases()
++        releases = get_fedora_releases(RFREMIX_RELEASES) + get_fedora_releases(FEDORA_RELEASES)
          self.downloadCombo.clear()
-         for release in [release['name'] for release in fedora_releases]:
+         for release in [release['name'] for release in releases]:
              self.downloadCombo.addItem(release)
 diff --git a/liveusb/releases.py b/liveusb/releases.py
-index b483d7b..7ba7aa4 100644
+index ffa063a..8b73566 100644
 --- a/liveusb/releases.py
 +++ b/liveusb/releases.py
-@@ -3,48 +3,146 @@ from urlgrabber import urlread
+@@ -3,46 +3,132 @@ from urlgrabber import urlread
  from urlgrabber.grabber import URLGrabError
  
  FEDORA_RELEASES = 'http://dl.fedoraproject.org/pub/fedora/linux/releases/'
--ARCHES = ('i386', 'i686', 'x86_64')
 +RFREMIX_RELEASES = 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/'
-+ARCHES = ('x86_64', 'i686', 'i386')
++
+ ARCHES = ('x86_64', 'i686', 'i386')
  
  # A backup list of releases, just in case we can't fetch them.
  fedora_releases = [
@@ -189,26 +190,11 @@ index b483d7b..7ba7aa4 100644
 +  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/18/Live/i386/Fedora-18-i686-Live-Desktop.iso'},
 + {'name': 'Fedora 18 i686 KDE',
 +  'sha256': 'f172192566d0e12c29a741a568a917c5d8643aa781fdf06598b12a217a58cb74',
-+  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/18/Live/i386/Fedora-18-i686-Live-KDE.iso'},
-+ {'name': 'Fedora 17 x86_64 Desktop',
-+  'sha256': 'dfd19d677790fea6144bcf537cd031dfb0a50e6c56652c94bfc71ea7bb949f2c',
-+  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/17/Live/x86_64/Fedora-17-x86_64-Live-Desktop.iso'},
-+ {'name': 'Fedora 17 x86_64 KDE',
-+  'sha256': '58b9abf5ef6a07b75b6a934468c783ab18e5a1236e6e5ab75dc2b39ca7680462',
-+  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/17/Live/x86_64/Fedora-17-x86_64-Live-KDE.iso'},
-+ {'name': 'Fedora 17 i686 Desktop',
-+  'sha256': '26027f4d4686f1df186b31ce773dbb903db18f4b1aa37a1e37f0fa6ff4111f42',
-+  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/17/Live/i686/Fedora-17-i686-Live-Desktop.iso'},
-+ {'name': 'Fedora 17 i686 KDE',
-+  'sha256': 'f10142bb0a4d91a0d8320a925fa33ab3a87d9764b03137bb30506830c1068583',
-+  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/17/Live/i686/Fedora-17-i686-Live-KDE.iso'}
++  'url': 'http://dl.fedoraproject.org/pub/fedora/linux/releases/18/Live/i386/Fedora-18-i686-Live-KDE.iso'}
  ]
  
-+
  other_releases = [
-     ##
-     ## Custom spins
-@@ -59,39 +157,52 @@ other_releases = [
+@@ -64,39 +150,52 @@ other_releases = [
  releases = fedora_releases + other_releases
  
  
