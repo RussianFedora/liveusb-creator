@@ -7,7 +7,7 @@
 %endif
 
 Name:           liveusb-creator
-Version:        3.12.0
+Version:        3.12.1
 Release:        1%{?dist}
 Summary:        A liveusb creator
 
@@ -86,8 +86,11 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 
 %changelog
-* Fri Oct 18 2013 Ivan Romanov <drizt@land.ru> - 3.12.0-1.R
+* Sun Feb 23 2014 Ivan Romanov <drizt@land.ru> - 3.12.1-1.R
 - added patch for RFRemix images
+
+* Fri Feb 21 2014 Luke Macken <lmacken@redhat.com> 3.12.1-1
+- Update to 3.12.1 with more translations
 
 * Wed Oct 16 2013 Luke Macken <lmacken@redhat.com> 3.12.0-1
 - Update to 3.12.0
@@ -215,7 +218,7 @@ rm -rf %{buildroot}
 * Thu Mar 12 2009 Luke Macken <lmacken@redhat.com> 3.6.3-1
 - Update to v3.6.3
 
-* Mon Mar 07 2009 Luke Macken <lmacken@redhat.com> 3.6-1
+* Mon Mar 09 2009 Luke Macken <lmacken@redhat.com> 3.6-1
 - Require pyparted
 - Update to v3.6
 
@@ -234,7 +237,7 @@ rm -rf %{buildroot}
 * Fri Jan 16 2009 Luke Macken <lmacken@redhat.com> 3.3-2
 - Require python-urlgrabber
 
-* Fri Jan 15 2009 Luke Macken <lmacken@redhat.com> 3.3-1
+* Thu Jan 15 2009 Luke Macken <lmacken@redhat.com> 3.3-1
 - Update to 3.3
 
 * Fri Jan 02 2009 Luke Macken <lmacken@redhat.com> 3.2-1
