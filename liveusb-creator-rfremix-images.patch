@@ -1,5 +1,5 @@
 diff --git a/liveusb/gui.py b/liveusb/gui.py
-index 7a91dcf..3d95c4f 100755
+index 730c70b..47e0ae3 100755
 --- a/liveusb/gui.py
 +++ b/liveusb/gui.py
 @@ -34,7 +34,7 @@ from datetime import datetime
@@ -11,21 +11,22 @@ index 7a91dcf..3d95c4f 100755
  if sys.platform == 'win32':
      from liveusb.urlgrabber.grabber import URLGrabber, URLGrabError
      from liveusb.urlgrabber.progress import BaseMeter
-@@ -338,8 +338,7 @@ class LiveUSBDialog(QtGui.QDialog, LiveUSBInterface):
+@@ -351,9 +351,8 @@ class LiveUSBWindow(QtGui.QMainWindow, LiveUSBInterface):
  
      def refresh_releases(self):
          self.live.log.info(_('Refreshing releases...'))
 -        global releases
--        releases = get_fedora_releases()
-+        releases = get_fedora_releases(RFREMIX_RELEASES) + get_fedora_releases(FEDORA_RELEASES)
-         self.downloadCombo.clear()
-         for release in [release['name'] for release in releases]:
-             self.downloadCombo.addItem(release)
+         try:
+-            releases = get_fedora_releases()
++            releases = get_fedora_releases(RFREMIX_RELEASES) + get_fedora_releases(FEDORA_RELEASES)
+             self.downloadCombo.clear()
+             for release in [release['name'] for release in releases]:
+                 self.downloadCombo.addItem(release)
 diff --git a/liveusb/releases.py b/liveusb/releases.py
-index db37385..cceb828 100644
+index 3522533..30914e9 100644
 --- a/liveusb/releases.py
 +++ b/liveusb/releases.py
-@@ -3,34 +3,215 @@ from urlgrabber import urlread
+@@ -3,34 +3,173 @@ from urlgrabber import urlread
  from urlgrabber.grabber import URLGrabError
  
  FEDORA_RELEASES = 'http://dl.fedoraproject.org/pub/fedora/linux/releases/'
@@ -58,78 +59,36 @@ index db37385..cceb828 100644
 -    {'name': 'Fedora 19 i686 KDE',
 -     'sha256': 'e81717564f96ee0f8c6d8b0186e7fca44da57f2ef154ea427b6d765ea139a083',
 -     'url': 'https://dl.fedoraproject.org/pub/fedora/linux/releases/19/Live/i386/Fedora-Live-KDE-i686-19-1.iso'},
-+ {'name': 'RFRemix 20 U1 x86_64 GNOME',
-+  'sha256': '346873bce0d43e79695c7a92e274c09eb913f39b11158c741e4fab65c534b8c1',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/x86_64/RFRemix-20-U1-x86_64-Live-GNOME.iso'},
-+ {'name': 'RFRemix 20 U1 x86_64 KDE',
-+  'sha256': '41e268bdbc1d8f261bee9c76e97448be704d6a40cc72f05465453f7d45216f48',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/x86_64/RFRemix-20-U1-x86_64-Live-KDE.iso'},
-+ {'name': 'RFRemix 20 U1 x86_64 KDE minimal',
-+  'sha256': 'da71e0919188d7e66ff11b1e6eb331dc52d22d719c99b70934064b933d1db032',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/x86_64/RFRemix-20-U1-x86_64-Live-KDE-minimal.iso'},
-+ {'name': 'RFRemix 20 U1 x86_64 LXDE',
-+  'sha256': 'e5341d725e6e2d65c3998617c3a9cd61455b3430bb5f747d7da71cbb02c75e3d',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/x86_64/RFRemix-20-U1-x86_64-Live-LXDE.iso'},
-+ {'name': 'RFRemix 20 U1 x86_64 MATE',
-+  'sha256': 'f02580b225f6adba3e4f885eb4965761ac6501e23c8e52953b670478542bcdcb',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/x86_64/RFRemix-20-U1-x86_64-Live-MATE.iso'},
-+ {'name': 'RFRemix 20 U1 x86_64 XFCE',
-+  'sha256': 'abc837386deaf46cb0d6d362ac6075935b844769aebd143a85e0df0b9ba4d439',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/x86_64/RFRemix-20-U1-x86_64-Live-XFCE.iso'},
-+ {'name': 'RFRemix 20 x86_64 GNOME',
-+  'sha256': '6010608cd428d623d597fb2c463c3ae9ab912824bbc6eca7dc5a307b9c7d039a',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/x86_64/RFRemix-20-x86_64-Live-GNOME.iso'},
-+ {'name': 'RFRemix 20 x86_64 KDE',
-+  'sha256': 'ef29e4f7a7be0f8f1b647978f2e96b7e3f549b1ca88f4050e977b4d17795a6fc',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/x86_64/RFRemix-20-x86_64-Live-KDE.iso'},
-+ {'name': 'RFRemix 20 x86_64 KDE minimal',
-+  'sha256': '732ab32229101b8699bf942711b5d541113ac6bcd30ad8e488ceafefa9d7336f',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/x86_64/RFRemix-20-x86_64-Live-KDE-minimal.iso'},
-+ {'name': 'RFRemix 20 x86_64 LXDE',
-+  'sha256': '90825d5c5b30d81b54645e14a6ff9734e342e0b7ea2f035eb80a0506fd5afa11',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/x86_64/RFRemix-20-x86_64-Live-LXDE.iso'},
-+ {'name': 'RFRemix 20 x86_64 MATE',
-+  'sha256': 'e13a69f01347fedfa2e9067f906dae0dffa4908784437bd7faf3e7bfad19ccd5',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/x86_64/RFRemix-20-x86_64-Live-MATE.iso'},
-+ {'name': 'RFRemix 20 x86_64 XFCE',
-+  'sha256': 'c1318c5bed8a6e0576f09ae9ed85bde6702716dcc984c498932ba07cf3f95745',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/x86_64/RFRemix-20-x86_64-Live-XFCE.iso'},
-+ {'name': 'RFRemix 20 U1 i686 GNOME',
-+  'sha256': 'deed40f3fcdd3572070a8c337a75f9fd8ca5c6adb6c33ff2c1f0b7dc1421435c',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/i686/RFRemix-20-U1-i686-Live-GNOME.iso'},
-+ {'name': 'RFRemix 20 U1 i686 KDE',
-+  'sha256': 'f4a72b6e41e1a8d30e6675aa02ff84a5c47ba800c170357327856e5692f40b90',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/i686/RFRemix-20-U1-i686-Live-KDE.iso'},
-+ {'name': 'RFRemix 20 U1 i686 KDE minimal',
-+  'sha256': 'e95c5d2d84c15458cb11c6a8bd515499b79c806eee105d40e38b1383444d61f4',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/i686/RFRemix-20-U1-i686-Live-KDE-minimal.iso'},
-+ {'name': 'RFRemix 20 U1 i686 LXDE',
-+  'sha256': 'aabd5d8820b75ecbd3baa52fa3ecb1079183b2cba8ba97c23320cc6c2f8eaf9f',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/i686/RFRemix-20-U1-i686-Live-LXDE.iso'},
-+ {'name': 'RFRemix 20 U1 i686 MATE',
-+  'sha256': '95d1d54e5883e327ebf5d0218665feaa78c093b0a14b655b50feb4bef4662703',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/i686/RFRemix-20-U1-i686-Live-MATE.iso'},
-+ {'name': 'RFRemix 20 U1 i686 XFCE',
-+  'sha256': 'eac457b10e26893a4116921f28aac9ee377455792b90efdf0766c448758f0a8c',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/i686/RFRemix-20-U1-i686-Live-XFCE.iso'},
-+ {'name': 'RFRemix 20 i686 GNOME',
-+  'sha256': 'f873a2c26012f42ce9bc8e05dec16f7802a78e720e22941e08c452cbaabb3732',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/i686/RFRemix-20-i686-Live-GNOME.iso'},
-+ {'name': 'RFRemix 20 i686 KDE',
-+  'sha256': '79785e0ca454c327f094fda2644561a8085258a997d6aaeb00588bcbe32262cf',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/i686/RFRemix-20-i686-Live-KDE.iso'},
-+ {'name': 'RFRemix 20 i686 KDE minimal',
-+  'sha256': '788a112fda00e565e261cba5567dae029710d81ace77a719a02b1ccdb2e1f619',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/i686/RFRemix-20-i686-Live-KDE-minimal.iso'},
-+ {'name': 'RFRemix 20 i686 LXDE',
-+  'sha256': 'b0bef2842eb0b052d66f951456a2cf25db730d18d442988977acb14ae8f5ad56',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/i686/RFRemix-20-i686-Live-LXDE.iso'},
-+ {'name': 'RFRemix 20 i686 MATE',
-+  'sha256': '512fa3493fd8d8d46933581589fb8d74fa532699e1a868a3278e17d2d9064de9',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/i686/RFRemix-20-i686-Live-MATE.iso'},
-+ {'name': 'RFRemix 20 i686 XFCE',
-+  'sha256': '14edcda66895cd82ebc506aea7d6e5faba9410f3cb58946401345b3068dbee48',
-+  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20/Live/i686/RFRemix-20-i686-Live-XFCE.iso'},
++ {'name': 'RFRemix 20.1 x86_64 GNOME',
++  'sha256': 'a82c6fc5f6608c6237f68b6460c926105c8368f1639396b0b35efe94e20baac4',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20.1/Live/x86_64/RFRemix-20.1-x86_64-Live-GNOME.iso'},
++ {'name': 'RFRemix 20.1 x86_64 KDE',
++  'sha256': '5fa7ccd4b74da1a01f9d0cdf48e93659f99e086cd6a0f1aab1b9d6c377774d3b',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20.1/Live/x86_64/RFRemix-20.1-x86_64-Live-KDE.iso'},
++ {'name': 'RFRemix 20.1 x86_64 LXDE',
++  'sha256': 'a77f5a7b170cabc945065f7305b374492cdb7839c89d1c1c192260dd6f30e7bf',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20.1/Live/x86_64/RFRemix-20.1-x86_64-Live-LXDE.iso'},
++ {'name': 'RFRemix 20.1 x86_64 MATE',
++  'sha256': '25245fd45abb085ccfa7a97e54b1b1586a5abc4df23f4b22e340bd52ab4ed6aa',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20.1/Live/x86_64/RFRemix-20.1-x86_64-Live-MATE.iso'},
++ {'name': 'RFRemix 20.1 x86_64 XFCE',
++  'sha256': 'f0df0a03de3e86638e0dce8436d1eb75ac778ece15bbd88b54f7043b3875dadd',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20.1/Live/x86_64/RFRemix-20.1-x86_64-Live-XFCE.iso'},
++ {'name': 'RFRemix 20.1 i686 GNOME',
++  'sha256': '7330f8e0ab029476804a4fc3000eccf56eb2f0dee421146047c37217a1116435',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20.1/Live/i686/RFRemix-20.1-i686-Live-GNOME.iso'},
++ {'name': 'RFRemix 20.1 i686 KDE',
++  'sha256': 'f49feb0de3f66bda42ff3501ca73950c135d4f6ce74cba6dc1d5ba55baacba89',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20.1/Live/i686/RFRemix-20.1-i686-Live-KDE.iso'},
++ {'name': 'RFRemix 20.1 i686 LXDE',
++  'sha256': 'f8952586aed1e6743af41365d25bd8d2603b5e7bd0989ba10e894c468f97a187',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20.1/Live/i686/RFRemix-20.1-i686-Live-LXDE.iso'},
++ {'name': 'RFRemix 20.1 i686 MATE',
++  'sha256': 'cd7b9dc880d4dc174c3b82a842af86312bb2bab6aa3ba4bf952e2a25f9ac8d3b',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20.1/Live/i686/RFRemix-20.1-i686-Live-MATE.iso'},
++ {'name': 'RFRemix 20.1 i686 XFCE',
++  'sha256': '5c87268b6046363605f305c2a6ea9526064a378b14da3ec59d57f7dd7a641298',
++  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/20.1/Live/i686/RFRemix-20.1-i686-Live-XFCE.iso'},
 + {'name': 'RFRemix 19.1 x86_64 GNOME',
 +  'sha256': 'fd1cd7f2f2d665e35ff1e225915e6f2745d1ad69a6ffbd9d580a9b1041401daa',
 +  'url': 'http://mirror.yandex.ru/fedora/russianfedora/releases/RFRemix/19.1/Live/x86_64/RFRemix-19.1-x86_64-Live-GNOME.iso'},
@@ -265,16 +224,22 @@ index db37385..cceb828 100644
  ]
  
  other_releases = [
-@@ -52,41 +233,57 @@ other_releases = [
+@@ -51,44 +190,57 @@ other_releases = [
+ 
  releases = fedora_releases + other_releases
  
++def get_fedora_releases(url):
++    releases = []
++    html = urlread(url)
  
 -def get_fedora_releases():
 -    global releases
 -    fedora_releases = []
 -    try:
 -        html = urlread(FEDORA_RELEASES)
--        for release in re.findall(r'<a href="(\d+)/">', html)[-2:][::-1]:
+-        versions = re.findall(r'<a href="(\d+)/">', html)
+-        latest = sorted([int(v) for v in versions], reverse=True)[0:2]
+-        for release in latest:
 -            for arch in ARCHES:
 -                arch_url = FEDORA_RELEASES + '%s/Live/%s/' % (release, arch)
 -                try:
@@ -289,16 +254,12 @@ index db37385..cceb828 100644
 -                                sha256, filename = line.split()
 -                                if filename[0] != '*':
 -                                    continue
-+def get_fedora_releases(url):
-+    releases = []
-+    html = urlread(url)
-+
 +    # RFRemix distributions can have '.' in version.
 +    # This code chooses the latest version for three last distributions.
 +    # It's mean for 18, 17.1, 17, 16.1, 16, 15.1 and so on it will be 18, 17.1 and 16.1
 +
-+    # This code is dirty. Feel to free improve it.
-+    all_releases = re.findall(r'<a href="(\d+\.?\d?)/">', html)[::-1]
++    # This code is dirty. Feel free to improve it.
++    all_releases = re.findall(r'<a href="(\d{2}\.?\d?)/">', html)[::-1]
 +    target_releases = all_releases[:1]
 +    last_release = int(target_releases[0].split('.')[0])
 +    prev_release = last_release - 1
