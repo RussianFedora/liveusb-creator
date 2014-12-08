@@ -8,7 +8,7 @@
 
 Name:           liveusb-creator
 Version:        3.13.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A liveusb creator
 
 Group:          Applications/System
@@ -33,7 +33,9 @@ Requires:       pyparted >= 2.0
 Requires:       syslinux-extlinux
 Requires:       udisks
 Requires:       polkit
-Requires:       polkit-gnome
+# DE's are expected to provide a polkit agent these days, so could consider
+# removing this too, see https://bugzilla.redhat.com/1171583
+Requires:       PolicyKit-authentication-agent
 
 %description
 A liveusb creator from Live Fedora images
@@ -92,8 +94,11 @@ rm -rf %{buildroot}
 %{_datadir}/polkit-1/actions/org.fedoraproject.pkexec.run-liveusb-creator.policy
 
 %changelog
-* Fri Dec  5 2014 Ivan Romanov <drizt@land.ru> - 3.13.1-1.R
+* Mon Dec  8 2014 Ivan Romanov <drizt@land.ru> - 3.13.1-2.R
 - added patch for RFRemix images
+
+* Mon Dec 08 2014 Rex Dieter <rdieter@fedoraproject.org> 3.13.1-2
+- Requires: PolicyKit-authentication-agent (#1171583)
 
 * Thu Nov 27 2014 Luke Macken <lmacken@redhat.com> - 3.13.1-1
 - Latest upstream release
